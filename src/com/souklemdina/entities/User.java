@@ -5,7 +5,8 @@
  */
 package com.souklemdina.entities;
 
-import java.sql.Date;
+import java.util.Date;
+
 
 
 /**
