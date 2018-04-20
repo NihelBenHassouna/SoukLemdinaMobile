@@ -18,7 +18,7 @@ import com.codename1.ui.layouts.BoxLayout;
 public class MyApplication {
 
     private Form current;
-    private Resources theme;
+     Resources theme;
 
     public void init(Object context) {
         theme = UIManager.initFirstTheme("/theme");
@@ -37,9 +37,11 @@ public class MyApplication {
         }
         Form hi = new Form("Hi World", BoxLayout.y());
         hi.add(new Label("Hi World"));
+        
         hi.show();
     }
 
+    
     public void stop() {
         current = getCurrentForm();
         if(current instanceof Dialog) {
