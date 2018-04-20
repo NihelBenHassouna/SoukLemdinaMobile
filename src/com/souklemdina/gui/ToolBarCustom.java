@@ -28,7 +28,7 @@ public class ToolBarCustom {
 
     public Form Customize(Form f, Resources theme) {
         
-           f.getToolbar().addCommandToSideMenu("Souk Lemdina", theme.getImage("text.png"), new ActionListener() {
+           f.getToolbar().addCommandToSideMenu("Souk Lemdina", theme.getImage("text.jpg"), new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
