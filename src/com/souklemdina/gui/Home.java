@@ -12,6 +12,7 @@ import com.codename1.ui.Container;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.Toolbar;
+import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
@@ -63,7 +64,7 @@ Container cnt = new Container();
         cnt1.add(btn);
         cnt2.add(prix);
         btn.addActionListener((l)->{
-
+            Info(p).show();
         });
         cnt2.setLeadComponent(btn);
         cnt2.add(cnt1);
@@ -76,6 +77,28 @@ Container cnt = new Container();
 
     public void setF(Form f) {
         this.f = f;
+    }
+
+    private Form Info(Produit p) {
+       Form f = new Form();
+
+        
+         Label titre = new Label(p.getTitre());
+        Label categorie = new Label(p.getCategorie());
+        Label prix = new Label(p.getPrix().toString());
+        Label description = new Label(p.getDescription().toString());
+
+
+        Container cnt1 = new Container(BoxLayout.y());
+        Container cnt2 = new Container(BoxLayout.x());
+        cnt1.add(titre);
+        cnt1.add(categorie);
+        cnt1.add(description);
+        cnt1.add(prix);
+        cnt2.add(cnt1);
+       f.add(cnt2);
+        return f ;
+
     }
 
 }
