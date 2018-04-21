@@ -54,6 +54,11 @@ public class Produit {
         return prix;
     }
 
+    @Override
+    public String toString() {
+        return "Produit{" + "categorie=" + categorie + ", titre=" + titre + ", description=" + description + ", prix=" + prix + ", photo=" + photo + ", id=" + id + ", ida=" + ida + ", quantite=" + quantite + '}';
+    }
+
     
 
     public String getPhoto() {
