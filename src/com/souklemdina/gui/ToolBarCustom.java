@@ -47,7 +47,7 @@ public class ToolBarCustom {
 
             }
         });
-        f.getToolbar().addCommandToSideMenu("Mon Panier", null, new ActionListener() {
+        f.getToolbar().addCommandToSideMenu("Monn Panier", null, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
