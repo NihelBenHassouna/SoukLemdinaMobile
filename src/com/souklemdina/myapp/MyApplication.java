@@ -20,7 +20,7 @@ import com.souklemdina.gui.ToolBarCustom;
 public class MyApplication {
 
     private Form current;
-    private Resources theme;
+     Resources theme;
 
     public void init(Object context) {
         theme = UIManager.initFirstTheme("/theme");
@@ -37,6 +37,7 @@ public class MyApplication {
             current.show();
             return;
         }
+
         
         //hi.show();
         Home h = new Home();
@@ -44,8 +45,10 @@ public class MyApplication {
         h.setF(tbs.Customize(h.getF(), theme));
         //h.getF().getToolbar().addCommandToSideMenu("test", null, null);
         h.getF().show();
+
     }
 
+    
     public void stop() {
         current = getCurrentForm();
         if(current instanceof Dialog) {
