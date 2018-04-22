@@ -26,7 +26,21 @@ public class ProduitService {
     String json;
     ArrayList<Produit> listProduit;
 
-    
+    public void ajoutTask(Produit p) {
+        ConnectionRequest con = new ConnectionRequest();
+        String Url = "http://localhost/SoukLemdinaPiDev/web/app_dev.php/api/add/produit" + p.getCategorie() + "/" + p.getDescription()
+      + "/"+p.getPhoto()+ "/"+p.getTitre()+ "/"+p.getIda()+ "/"+p.getId()+ "/"+p.getPrix()+ "/"+p.getQuantite() ;
+        con.setUrl(Url);
+
+        System.out.println("tt");
+
+        con.addResponseListener((e) -> {
+            String str = new String(con.getResponseData());
+            System.out.println(str);
+
+        });
+        NetworkManager.getInstance().addToQueueAndWait(con);
+    }
     
    public Produit GetProdactById(Integer id) {
 
