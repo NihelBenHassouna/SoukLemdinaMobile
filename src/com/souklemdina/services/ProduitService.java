@@ -22,17 +22,18 @@ import java.util.Map;
  * @author jskka
  */
 public class ProduitService {
+
     Produit p = new Produit();
     String json;
     ArrayList<Produit> listProduit;
 
     public void ajoutTask(Produit p) {
         ConnectionRequest con = new ConnectionRequest();
-        String Url = "http://localhost/SoukLemdinaPiDev/web/app_dev.php/api/add/produit" + p.getCategorie() + "/" + p.getDescription()
-      + "/"+p.getPhoto()+ "/"+p.getTitre()+ "/"+p.getIda()+ "/"+p.getId()+ "/"+p.getPrix()+ "/"+p.getQuantite() ;
+        String Url = "http://localhost/SoukLemdinaPiDev/web/app_dev.php/api/add/produit?titre=" + p.getTitre()+ "&categorie="+p.getCategorie()+
+                "&prix="+p.getPrix()+"&description="+p.getDescription()+"&quantite="+p.getQuantite()+"&ida="+p.getIda();
         con.setUrl(Url);
 
-        System.out.println("tt");
+        System.out.println("AJOUTEEEEEEEEEEE");
 
         con.addResponseListener((e) -> {
             String str = new String(con.getResponseData());
@@ -41,8 +42,8 @@ public class ProduitService {
         });
         NetworkManager.getInstance().addToQueueAndWait(con);
     }
-    
-   public Produit GetProdactById(Integer id) {
+
+    public Produit GetProdactById(Integer id) {
 
         ConnectionRequest con = new ConnectionRequest();
         con.setUrl("http://localhost/SoukLemdinaPiDev/web/app_dev.php/api/all/produit");
@@ -68,58 +69,58 @@ public class ProduitService {
         return p;
 
     }
+
     public ArrayList<Produit> AllProducts(String json) {
-        
+
         listProduit = new ArrayList<>();
         try {
 
             JSONParser j = new JSONParser();
 
             Map<String, Object> Produits = j.parseJSON(new CharArrayReader(json.toCharArray()));
-            System.out.println("produittttttttttt" +Produits);
+            System.out.println("produittttttttttt" + Produits);
 
             List<Map<String, Object>> list = (List<Map<String, Object>>) Produits.get("root");
 
             for (Map<String, Object> obj : list) {
                 Produit p = new Produit();
-                p.setId((int)(Float.parseFloat(obj.get("id").toString())));
+                p.setId((int) (Float.parseFloat(obj.get("id").toString())));
                 p.setCategorie(obj.get("categorie").toString());
-                System.out.println("cat"+p.getCategorie());
+                System.out.println("cat" + p.getCategorie());
                 p.setDescription(obj.get("description").toString());
                 p.setTitre(obj.get("titre").toString());
 
-              
-                //p.setPhoto(obj.get("photo").toString());
-                p.setIda((int)(Float.parseFloat(obj.get("idartisan").toString())));
+                p.setPhoto(obj.get("image").toString());
+                p.setIda((int) (Float.parseFloat(obj.get("idartisan").toString())));
                 p.setPrix(Float.parseFloat((obj.get("prix").toString())));
-                p.setQuantite((int)(Float.parseFloat(obj.get("quantite").toString())));
+                p.setQuantite((int) (Float.parseFloat(obj.get("quantite").toString())));
                 listProduit.add(p);
-                System.out.println("listppp"+listProduit);    
+                System.out.println("listppp" + listProduit);
             }
 
         } catch (IOException ex) {
         }
-        return  listProduit;
+        return listProduit;
 
     }
     ArrayList<Produit> listp = new ArrayList<>();
 
-  public ArrayList<Produit> getList2(){       
+    public ArrayList<Produit> getList2() {
         ConnectionRequest con = new ConnectionRequest();
-        con.setUrl("http://localhost/SoukLemdinaPiDev/web/app_dev.php/api/all/produit");  
+        con.setUrl("http://localhost/SoukLemdinaPiDev/web/app_dev.php/api/all/produit");
         con.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
                 ProduitService per = new ProduitService();
-                     
 
                 String json = new String(con.getResponseData());
-                System.out.println("response datat   "+json);
+                System.out.println("response datat   " + json);
                 listp = per.AllProducts(json);
-             
+
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(con);
         return listp;
-    }   
+    }
+
 }
