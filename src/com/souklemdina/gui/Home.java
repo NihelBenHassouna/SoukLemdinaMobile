@@ -87,7 +87,7 @@ Container cnt = new Container();
         Label categorie = new Label(p.getCategorie());
         Label prix = new Label(p.getPrix().toString());
         Label description = new Label(p.getDescription().toString());
-
+ Button btnn = new Button("ajouter au panier");
 
         Container cnt1 = new Container(BoxLayout.y());
         Container cnt2 = new Container(BoxLayout.x());
@@ -95,8 +95,10 @@ Container cnt = new Container();
         cnt1.add(categorie);
         cnt1.add(description);
         cnt1.add(prix);
+        cnt1.add(btnn);
         cnt2.add(cnt1);
        f.add(cnt2);
+       
         return f ;
 
     }
