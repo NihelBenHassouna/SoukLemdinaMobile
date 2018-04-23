@@ -7,11 +7,16 @@ package com.souklemdina.gui;
 
 import com.codename1.components.SpanButton;
 import com.codename1.io.ConnectionRequest;
+import com.codename1.io.NetworkEvent;
+import com.codename1.io.NetworkManager;
 import com.codename1.ui.Calendar;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
+import com.codename1.ui.events.ActionEvent;
+import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.souklemdina.entities.Produit;
 import com.souklemdina.services.ProduitService;
@@ -21,7 +26,7 @@ import com.souklemdina.services.ProduitService;
  * @author Nihel
  */
 public class AddProduct {
-
+    ConnectionRequest connectionRequest;
     Form f;
     Container labelContainer;
     Container textFieldsContainer;
@@ -37,7 +42,7 @@ public class AddProduct {
     TextField quantiteTextField;
     TextField descriptionTextField;
     SpanButton ajouter;
-    
+    Produit p;
     public AddProduct() {
         f = new Form();
         labelContainer = new Container(BoxLayout.y());
@@ -53,7 +58,7 @@ public class AddProduct {
         categorieTextField= new TextField();
         quantiteTextField= new TextField();
         descriptionTextField= new TextField();
-        Produit p = new Produit();
+        p = new Produit();
         p.setTitre(titreTextField.getText());
         p.setDescription(descriptionTextField.getText());
         p.setCategorie(categorieTextField.getText());
@@ -61,10 +66,21 @@ public class AddProduct {
         p.setQuantite(10);
         p.setIda(38);
         ajouter = new SpanButton("Ajouter");
-        ajouter.addActionListener(e->{
-        ProduitService ps = new ProduitService();
-        ps.ajoutTask(p);
-            System.out.println("AJOUTER MOTHER FUCKER");
+        ajouter.addActionListener(e-> {
+
+            connectionRequest=new ConnectionRequest();
+            connectionRequest.setUrl("http://localhost/SoukLemdinaPiDev/web/app_dev.php/api/add/produit?id="+10+"titre=" + titreTextField.getText()+ "&categorie="+categorieTextField.getText()+"&prix="+p.getPrix()+"&description="+p.getDescription()+"&quantite="+p.getQuantite()+"&ida="+p.getIda());
+        System.out.println("fucking ajout" + p.toString());
+            connectionRequest.addResponseListener((evt) -> {
+                    System.out.println("fucking ajout");
+            Dialog.show("Ajout evenement", "ajout avec succes", "OK",null);
+            Home h = new Home();
+            h.getF().show();
+            
+            });
+         NetworkManager.getInstance().addToQueue(connectionRequest);
+           
+            
         });
         labelContainer.add(titre).add(description).add(prix).add(quantite).add(categorie).add(ajouter);
         textFieldsContainer.add(titreTextField).add(descriptionTextField).add(prixTextField).add(quantiteTextField).add(categorieTextField);
