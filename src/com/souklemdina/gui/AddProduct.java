@@ -9,11 +9,13 @@ import com.codename1.components.SpanButton;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
+import com.codename1.ui.Button;
 import com.codename1.ui.Calendar;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
+import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
@@ -42,51 +44,86 @@ public class AddProduct {
     TextField quantiteTextField;
     TextField descriptionTextField;
     SpanButton ajouter;
-    Produit p;
+    Produit p= new Produit();
     public AddProduct() {
         f = new Form();
-        labelContainer = new Container(BoxLayout.y());
-        textFieldsContainer = new Container(BoxLayout.y());
-        data = new Container(BoxLayout.x());
-        titre = new Label("Titre");
-        description = new Label("Description");
-        prix = new Label("Prix");
-        categorie = new Label("Categorie");
-        quantite = new Label("quantité");
-        titreTextField = new TextField();
-        prixTextField= new TextField();
-        categorieTextField= new TextField();
-        quantiteTextField= new TextField();
-        descriptionTextField= new TextField();
-        p = new Produit();
-        p.setTitre(titreTextField.getText());
-        p.setDescription(descriptionTextField.getText());
-        p.setCategorie(categorieTextField.getText());
-        p.setPrix(null);
-        p.setQuantite(10);
-        p.setIda(38);
-        ajouter = new SpanButton("Ajouter");
-        ajouter.addActionListener(e-> {
+//        labelContainer = new Container(BoxLayout.y());
+//        textFieldsContainer = new Container(BoxLayout.y());
+//        data = new Container(BoxLayout.x());
+//        titre = new Label("Titre");
+//        description = new Label("Description");
+//        prix = new Label("Prix");
+//        categorie = new Label("Categorie");
+//        quantite = new Label("quantité");
+//        titreTextField = new TextField();
+//        prixTextField= new TextField();
+//        categorieTextField= new TextField();
+//        quantiteTextField= new TextField();
+//        descriptionTextField= new TextField();
+//        
+//        p.setTitre(titreTextField.getText());
+//        p.setDescription(descriptionTextField.getText());
+//        p.setCategorie(categorieTextField.getText());
+//        p.setPrix(null);
+//        p.setQuantite(10);
+//        p.setIda(38);
+//    labelContainer.add(titre).add(description).add(prix).add(quantite).add(categorie).add(ajouter);
+//        textFieldsContainer.add(titreTextField).add(descriptionTextField).add(prixTextField).add(quantiteTextField).add(categorieTextField);
+//        data.add(labelContainer);
+//        data.add(textFieldsContainer);
+//        f.add(data);
+//
+//        ajouter = new SpanButton("Ajouter");
+//        ajouter.addActionListener(e-> {
+//            connectionRequest=new ConnectionRequest();
+//            connectionRequest.setUrl("http://localhost/SoukLemdinaPiDev/web/app_dev.php/api/add/produit?titre=" + p.getTitre()+ "&categorie="+p.getCategorie()+
+//                "&prix="+p.getPrix()+"&description="+p.getDescription()+"&quantite="+p.getQuantite()+"&ida="+p.getIda());
+//        System.out.println("fucking ajout" + p.toString());
+//            connectionRequest.addResponseListener((evt) -> {
+//                    System.out.println("fucking ajout");
+//            Dialog.show("Ajout evenement", "ajout avec succes", "OK",null);
+//            Home h = new Home();
+//            h.getF().show();
+//            
+//            });
+//         NetworkManager.getInstance().addToQueue(connectionRequest);
+//           
+//            
+//        });
+       
+         TextField titre = new TextField("","titre",20,TextField.ANY);
+         f.add(titre);
+         TextField description = new TextField("","description",20,TextField.ANY);
+         f.add(description);
+         TextField categorie = new TextField("","categorie",20,TextField.ANY);
+         f.add(categorie);
+         TextField prix=new TextField("", "prix",20,TextField.ANY);
+         f.add(prix);
+         TextField quantite=new TextField("", "quantité",20,TextField.ANY);
+         f.add(quantite);
+         TextField image=new TextField("", "image",20,TextField.ANY);
+         f.add(image);
+         Button valider=new Button("Valider");
+         f.add(valider);
+      
+         valider.addActionListener(new ActionListener() {
 
+            @Override
+            public void actionPerformed(ActionEvent evt) {
             connectionRequest=new ConnectionRequest();
-            connectionRequest.setUrl("http://localhost/SoukLemdinaPiDev/web/app_dev.php/api/add/produit?id="+10+"titre=" + titreTextField.getText()+ "&categorie="+categorieTextField.getText()+"&prix="+p.getPrix()+"&description="+p.getDescription()+"&quantite="+p.getQuantite()+"&ida="+p.getIda());
-        System.out.println("fucking ajout" + p.toString());
-            connectionRequest.addResponseListener((evt) -> {
-                    System.out.println("fucking ajout");
-            Dialog.show("Ajout evenement", "ajout avec succes", "OK",null);
+            connectionRequest.setUrl("http://127.0.0.1:8000/api/add/produit/" 
+                    +quantite.getText()+ '/'+image.getText()+
+                    '/'+description.getText()+'/'+categorie.getText()+'/'+titre.getText()+'/'+prix.getText()+'/'+2);
+            connectionRequest.addResponseListener((NetworkEvent evtl) -> {
+            Dialog.show("Ajout produit", "ajout avec succes", "OK",null);
             Home h = new Home();
             h.getF().show();
             
             });
          NetworkManager.getInstance().addToQueue(connectionRequest);
-           
-            
+            }
         });
-        labelContainer.add(titre).add(description).add(prix).add(quantite).add(categorie).add(ajouter);
-        textFieldsContainer.add(titreTextField).add(descriptionTextField).add(prixTextField).add(quantiteTextField).add(categorieTextField);
-        data.add(labelContainer);
-        data.add(textFieldsContainer);
-        f.add(data);
+
     }
 
     public Form getF() {
@@ -96,5 +133,7 @@ public class AddProduct {
     public void setF(Form f) {
         this.f = f;
     }
+
+   
 
 }
