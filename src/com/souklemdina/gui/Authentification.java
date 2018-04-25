@@ -21,6 +21,8 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.util.Resources;
+import com.souklemdina.entities.User;
+import com.souklemdina.services.UserService;
 import java.io.IOException;
 import java.util.Map;
 
@@ -29,6 +31,7 @@ import java.util.Map;
  * @author Nihel
  */
 public class Authentification {
+    public static User connectedUser;
     Form f;
     Container icon;
     Container data;
@@ -85,8 +88,10 @@ public class Authentification {
                     Map<String, Object> users = j.parseJSON(new CharArrayReader(json.toCharArray())); 
                               System.out.println("roleeeee"+users.get("id")+users.get("nom"));
                               userId = (int)Float.parseFloat(users.get("id").toString());
-                              System.out.println("rooollee"+users.get("roles").toString());
-                              System.out.println("USER ID =   "+userId);
+//                              connectedUser = new User();
+//                              UserService us = new UserService();
+//                              connectedUser = us.GetUserById(userId);
+                              System.out.println(userId + "allalala");
                     if(users.get("password").equals("0")) 
                         {
                           Dialog.show("Erreur d'authentification", "Verifier votre Nom d'utilisateur ou mot de passe!!", "OK", "Annuler");
@@ -130,11 +135,15 @@ public class Authentification {
         reg.addPointerPressedListener(e->{
         Register h = new Register(theme);
         h.getF().show();
+        
         });
       
         data.add(reg);
         f.add(icon);
         f.add(data);
+        UserService us = new UserService();
+        System.out.println("lé");
+        us.GetUserById(2);
     }
 
     public Form getF() {

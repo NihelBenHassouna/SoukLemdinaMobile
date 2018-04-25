@@ -43,10 +43,10 @@ public class ProduitService {
         NetworkManager.getInstance().addToQueueAndWait(con);
     }
 
-    public Produit GetProdactById(Integer id) {
-
+    public ArrayList<Produit> GetProdactById(Integer id) {
+      listProduit = new ArrayList<>();
         ConnectionRequest con = new ConnectionRequest();
-        con.setUrl("http://localhost/SoukLemdinaPiDev/web/app_dev.php/api/all/produit");
+        con.setUrl("http://localhost/SoukLemdinaPiDev/web/app_dev.php/api/all/produitartisant/"+id);
 
         con.addResponseListener(new ActionListener<NetworkEvent>() {
 
@@ -57,7 +57,7 @@ public class ProduitService {
                 ArrayList<Produit> List = AllProducts(json);
 
                 for (Produit x : List) {
-                    if (x.getId() == id) {
+                    if (x.getIda()== id) {
                         p = x;
                     }
                 }
@@ -66,7 +66,7 @@ public class ProduitService {
         });
         NetworkManager.getInstance().addToQueueAndWait(con);
 
-        return p;
+        return listProduit;
 
     }
 
