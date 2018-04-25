@@ -59,7 +59,7 @@ public class AddProduct {
     TextField descriptionTextField;
     SpanButton ajouter;
     Produit p= new Produit();
-    public AddProduct() {
+    public AddProduct() throws Exception {
         f = new Form();
 //        labelContainer = new Container(BoxLayout.y());
 //        textFieldsContainer = new Container(BoxLayout.y());
@@ -115,21 +115,20 @@ public class AddProduct {
          f.add(prix);
          TextField quantite=new TextField("", "quantité",20,TextField.ANY);
          f.add(quantite);
-         TextField image=new TextField("", "image",20,TextField.ANY);
-         f.add(image);
-//          FileUploader image = new FileUploader("http://localhost/SoukLemdinaPiDev/web/uploads/images/");
-//          f.add(image);
+        TextField image=new TextField("", "image",20,TextField.ANY);
+        
+                  f.add(image);
+
          Button valider=new Button("Valider");
          f.add(valider);
          
-//         Form hi = new Form("Capture", new BorderLayout());
-//hi.setToolbar(new Toolbar());
+//f.setToolbar(new Toolbar());
 //Style s = UIManager.getInstance().getComponentStyle("Title");
 //FontImage icon = FontImage.createMaterial(FontImage.MATERIAL_CAMERA, s);
 //
 //ImageViewer iv = new ImageViewer(icon);
-//
-//hi.getToolbar().addCommandToRightBar("", icon, (ev) -> {
+//        
+//f.getToolbar().addCommandToRightBar("", icon, (ev) -> {
 //    Display.getInstance().openGallery((e) -> {
 //        if(e != null && e.getSource() != null) {
 //            try {
@@ -139,6 +138,7 @@ public class AddProduct {
 //                    m = new DefaultListModel<>(img);
 //                    iv.setImageList(m);
 //                    iv.setImage(img);
+//                    System.out.println(img.getImage().toString()+ "hhhhhhhhhhhhhhhhhhhhhh");
 //                } else {
 //                    m.addItem(img);
 //                }
@@ -148,6 +148,7 @@ public class AddProduct {
 //            }
 //        }
 //    }, Display.GALLERY_IMAGE);
+//
 //});
       
          valider.addActionListener(new ActionListener() {
