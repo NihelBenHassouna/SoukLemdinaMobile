@@ -7,6 +7,7 @@ package com.souklemdina.gui;
 
 import com.codename1.components.SpanLabel;
 import com.codename1.io.ConnectionRequest;
+import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
@@ -16,6 +17,7 @@ import com.codename1.ui.EncodedImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
+import com.codename1.ui.TextField;
 import com.codename1.ui.URLImage;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
@@ -40,7 +42,7 @@ public class ProduitArtisant {
     Label quantite;
     Label description;
     ConnectionRequest connectionRequest;
-
+    TextField taux = new TextField("","taux%",20,TextField.ANY);
     public Form getF() {
         return f;
     }
@@ -88,6 +90,8 @@ public class ProduitArtisant {
         cnt1.add(categorie);
         cnt1.add(prix);
          cnt1.add(btn);
+         
+
 
         cnt2.add(cnt1);
         cnt2.setLeadComponent(btn);
@@ -133,8 +137,23 @@ private Form Info(Produit p) {
                        
                     }
                 }
-        
-        });
+              });
+         Button pro = new Button("Ajouter une promotion");
+        pro.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent o) {
+
+                     connectionRequest=new ConnectionRequest();
+            connectionRequest.setUrl("http://localhost/SoukLemdinaPiDev/web/app_dev.php/api/add/promotion/"+taux.getText()+"/"+p.getId());
+            connectionRequest.addResponseListener((NetworkEvent evtl) -> {
+            Dialog.show("Ajout promotion", "ajout avec succes", "OK",null);
+            Home h = new Home();
+            h.getF().show();
+            
+            });
+         NetworkManager.getInstance().addToQueue(connectionRequest);
+                }
+              });
         Container cnt1 = new Container(BoxLayout.y());
         Container cnt2 = new Container(BoxLayout.x());
         cnt1.add(titre);
@@ -143,6 +162,8 @@ private Form Info(Produit p) {
         cnt1.add(prix);
         cnt1.add(label);
         cnt1.add(btnn);
+        cnt1.add(taux);
+         cnt1.add(pro);
         cnt2.add(cnt1);
        f.add(cnt2);
        
