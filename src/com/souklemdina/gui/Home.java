@@ -44,7 +44,9 @@ public class Home {
     Label test;
     Label titre;
     Label prix;
+
     Label image;
+
     Label categorie;
     Label quantite;
     Label description;
@@ -67,7 +69,8 @@ public class Home {
         }
 
         f.add(cnt);
-
+ 
+       
     }
 
 //fonction traja3 container yekhou produit en parametre w kol mara 3aytelha hne    
@@ -76,6 +79,7 @@ public class Home {
         categorie = new Label(p.getCategorie());
         prix = new Label(p.getPrix().toString());
         image = new Label(p.getPhoto().toString());
+
         Label label = new Label();
 
         Button btn = new Button("detail produit");
@@ -86,16 +90,20 @@ public class Home {
                 "Large_" + "http://localhost/SoukLemdinaPiDev/web/uploads/images/" + p.getPhoto()
                 + "", "http://localhost/SoukLemdinaPiDev/web/uploads/images/" + p.getPhoto()
                 + "", URLImage.RESIZE_SCALE_TO_FILL));
+
         Container cnt1 = new Container(BoxLayout.y());
         Container cnt2 = new Container(BoxLayout.x());
         cnt1.add(label);
         cnt1.add(titre);
         cnt1.add(categorie);
         cnt1.add(prix);
+
         cnt1.add(btn);
+
 
         cnt2.add(cnt1);
         cnt2.setLeadComponent(btn);
+
 
         btn.addActionListener(new ActionListener() {
 
@@ -104,6 +112,7 @@ public class Home {
               
                 Info(p).show();
             }
+
         });
         return cnt2;
     }
@@ -124,6 +133,7 @@ public class Home {
         prix = new Label(p.getPrix().toString());
         description = new Label(p.getDescription().toString());
         Label label = new Label();
+
         int deviceWidth = Display.getInstance().getDisplayWidth() / 4;
         Image placeholder = Image.createImage(deviceWidth, deviceWidth); //square image set to 10% of screen width
         EncodedImage encImage = EncodedImage.createFromImage(placeholder, false);
@@ -131,6 +141,7 @@ public class Home {
                 "Large_" + "http://localhost/SoukLemdinaPiDev/web/uploads/images/" + p.getPhoto()
                 + "", "http://localhost/SoukLemdinaPiDev/web/uploads/images/" + p.getPhoto()
                 + "", URLImage.RESIZE_SCALE_TO_FILL));
+
         Button btnn = new Button("Ajout produit");
         btnn.addActionListener(e -> {
             ToolBarCustom tbs = new ToolBarCustom();

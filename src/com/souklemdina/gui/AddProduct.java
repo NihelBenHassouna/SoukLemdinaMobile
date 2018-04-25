@@ -34,6 +34,9 @@ import com.souklemdina.entities.Produit;
 import com.souklemdina.services.ProduitService;
 import java.io.IOException;
 
+import rest.file.uploader.tn.FileUploader;
+
+
 /**
  *
  * @author Nihel
