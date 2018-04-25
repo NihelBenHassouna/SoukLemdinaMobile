@@ -5,36 +5,20 @@
  */
 package com.souklemdina.gui;
 
-import com.codename1.components.ImageViewer;
 import com.codename1.components.SpanButton;
 import com.codename1.io.ConnectionRequest;
-import com.codename1.io.Log;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.Button;
-import com.codename1.ui.Calendar;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
-import com.codename1.ui.Display;
-import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
-import com.codename1.ui.Image;
 import com.codename1.ui.Label;
-import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
-import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
-import com.codename1.ui.layouts.BorderLayout;
-import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.list.DefaultListModel;
-import com.codename1.ui.plaf.Style;
-import com.codename1.ui.plaf.UIManager;
-import com.codename1.ui.util.Resources;
 import com.souklemdina.entities.Produit;
 import static com.souklemdina.gui.Authentification.connectedUser;
-import com.souklemdina.services.ProduitService;
-import java.io.IOException;
 
 /**
  *

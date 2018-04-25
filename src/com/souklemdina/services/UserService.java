@@ -47,8 +47,9 @@ public class UserService {
                     String prenom = User.get("prenom").toString();
                     String role = User.get("roles").toString();
                     String adresse= User.get("adresse").toString();
-                    String img = User.get("image").toString();
+                    
                     user.setEmail(email);
+                    String img = "http://localhost/pidev/profileimages/"+email+".png";
                     user.setAdresse(adresse);
                     user.setNom(nom);
                     user.setPrenom(prenom);
