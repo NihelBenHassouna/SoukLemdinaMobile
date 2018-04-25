@@ -56,11 +56,36 @@ public class ToolBarCustom {
 
             }
         });
+        f.getToolbar().addCommandToSideMenu("MyProduit", null, new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                   
+                ProduitArtisant pa = new ProduitArtisant();
+                pa.getF().show();
+                
+
+
+                
+            }
+        });
         f.getToolbar().addCommandToSideMenu("Messages", null, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
+                   
+                
 
+
+                
+            }
+        });
+         f.getToolbar().addCommandToSideMenu("statistique", null, new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+             Statistic s = new Statistic();
+             s.createPieChartForm().show();
                 
 
             }
@@ -69,11 +94,32 @@ public class ToolBarCustom {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
-
+             
                 
 
             }
         });
+         f.getToolbar().addCommandToSideMenu("ajouter produit", null, new ActionListener() {
+                
+
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+             
+               AddProduct ap = new AddProduct();
+        ap.getF().show();
+                
+            }
+        });
         return f;
     }
+
+    public void setF(Form f) {
+        this.f = f;
+    }
+
+    
+    public Form getF() {
+        return f;
+    }
+    
 }

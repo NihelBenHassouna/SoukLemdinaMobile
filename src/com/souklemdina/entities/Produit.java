@@ -36,6 +36,21 @@ public class Produit {
         this.quantite = quantite;
     }
 
+    public Produit(String categorie, String titre, String description, Float prix, int quantite) {
+        this.categorie = categorie;
+        this.titre = titre;
+        this.description = description;
+        this.prix = prix;
+        this.quantite = quantite;
+    }
+
+    public Produit(String categorie, String titre, String description) {
+        this.categorie = categorie;
+        this.titre = titre;
+        this.description = description;
+    }
+    
+
     public String getCategorie() {
         return categorie;
     }

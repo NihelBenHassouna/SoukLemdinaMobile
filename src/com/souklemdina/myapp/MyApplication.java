@@ -7,9 +7,18 @@ import com.codename1.ui.Label;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.io.Log;
+import com.codename1.ui.Button;
+import com.codename1.ui.Component;
+import com.codename1.ui.Container;
+import com.codename1.ui.TextField;
 
 import com.codename1.ui.Toolbar;
+import com.codename1.ui.geom.Dimension;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.layouts.LayeredLayout;
+import com.souklemdina.gui.Authentification;
 import com.souklemdina.gui.Home;
 import com.souklemdina.gui.ToolBarCustom;
 
@@ -40,11 +49,13 @@ public class MyApplication {
 
         
         //hi.show();
-        Home h = new Home();
+        Authentification h = new Authentification(theme);
+     //   Home h = new Home();
         ToolBarCustom tbs = new ToolBarCustom();
         h.setF(tbs.Customize(h.getF(), theme));
         //h.getF().getToolbar().addCommandToSideMenu("test", null, null);
         h.getF().show();
+        
 
     }
 
