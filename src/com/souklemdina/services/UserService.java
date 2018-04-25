@@ -47,13 +47,14 @@ public class UserService {
                     String prenom = User.get("prenom").toString();
                     String role = User.get("roles").toString();
                     String adresse= User.get("adresse").toString();
-                    
+                    String img = User.get("image").toString();
                     user.setEmail(email);
                     user.setAdresse(adresse);
                     user.setNom(nom);
                     user.setPrenom(prenom);
                     user.setId(id);
                     user.setRole(role);
+                    user.setImage(img);
                     System.out.println(user.getNom() +"  NAME");
                 } catch (IOException ex) {
                     
