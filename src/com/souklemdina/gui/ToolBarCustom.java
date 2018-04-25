@@ -11,6 +11,7 @@ import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.util.Resources;
+import static com.souklemdina.gui.Authentification.connectedUser;
 
 /**
  *
@@ -26,9 +27,9 @@ public class ToolBarCustom {
 
     }
 
-    public Form Customize(Form f, Resources theme) {
+    public Form Customize(Form f) {
         
-           f.getToolbar().addCommandToSideMenu("Souk Lemdina", theme.getImage("text.png"), new ActionListener() {
+           f.getToolbar().addCommandToSideMenu("Souk Lemdina", null, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -56,7 +57,51 @@ public class ToolBarCustom {
 
             }
         });
-        f.getToolbar().addCommandToSideMenu("MyProduit", null, new ActionListener() {
+        
+        f.getToolbar().addCommandToSideMenu("Messages", null, new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                   
+                
+
+
+                
+            }
+        });
+        
+         f.getToolbar().addCommandToSideMenu("Profil", null, new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+             
+                
+
+            }
+        });
+         if (connectedUser.getRole().equalsIgnoreCase("[ROLE_ARTISAN, ROLE_USER]")){
+         f.getToolbar().addCommandToSideMenu("ajouter produit", null, new ActionListener() {
+                
+
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+             
+               AddProduct ap = new AddProduct();
+        ap.getF().show();
+                
+            }
+        });
+          f.getToolbar().addCommandToSideMenu("statistique", null, new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+             Statistic s = new Statistic();
+             s.createPieChartForm().show();
+                
+
+            }
+        });
+          f.getToolbar().addCommandToSideMenu("MyProduit", null, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -69,50 +114,11 @@ public class ToolBarCustom {
                 
             }
         });
-        f.getToolbar().addCommandToSideMenu("Messages", null, new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                   
-                
-
-
-                
-            }
-        });
-         f.getToolbar().addCommandToSideMenu("statistique", null, new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-             Statistic s = new Statistic();
-             s.createPieChartForm().show();
-                
-
-            }
-        });
-         f.getToolbar().addCommandToSideMenu("Profil", null, new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-             
-                
-
-            }
-        });
-         f.getToolbar().addCommandToSideMenu("ajouter produit", null, new ActionListener() {
-                
-
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-             
-               AddProduct ap = new AddProduct();
-        ap.getF().show();
-                
-            }
-        });
+         }
         return f;
     }
 
+    
     public void setF(Form f) {
         this.f = f;
     }

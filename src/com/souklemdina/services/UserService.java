@@ -53,6 +53,7 @@ public class UserService {
                     user.setNom(nom);
                     user.setPrenom(prenom);
                     user.setId(id);
+                    user.setRole(role);
                     System.out.println(user.getNom() +"  NAME");
                 } catch (IOException ex) {
                     

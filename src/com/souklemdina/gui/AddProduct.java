@@ -30,7 +30,9 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.list.DefaultListModel;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.plaf.UIManager;
+import com.codename1.ui.util.Resources;
 import com.souklemdina.entities.Produit;
+import static com.souklemdina.gui.Authentification.connectedUser;
 import com.souklemdina.services.ProduitService;
 import java.io.IOException;
 
@@ -57,7 +59,10 @@ public class AddProduct {
     SpanButton ajouter;
     Produit p= new Produit();
     public AddProduct() {
+       
         f = new Form();
+         ToolBarCustom tbs = new ToolBarCustom();
+        f = tbs.Customize(f);
 //        labelContainer = new Container(BoxLayout.y());
 //        textFieldsContainer = new Container(BoxLayout.y());
 //        data = new Container(BoxLayout.x());
@@ -154,7 +159,7 @@ public class AddProduct {
             connectionRequest=new ConnectionRequest();
             connectionRequest.setUrl("http://localhost/SoukLemdinaPiDev/web/app_dev.php/api/add/produit/" 
                     +quantite.getText()+ '/'+image.getText()+
-                    '/'+description.getText()+'/'+categorie.getText()+'/'+titre.getText()+'/'+prix.getText()+'/'+2);
+                    '/'+description.getText()+'/'+categorie.getText()+'/'+titre.getText()+'/'+prix.getText()+'/'+connectedUser.getId());
             connectionRequest.addResponseListener((NetworkEvent evtl) -> {
             Dialog.show("Ajout produit", "ajout avec succes", "OK",null);
             Home h = new Home();
