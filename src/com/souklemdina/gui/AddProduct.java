@@ -5,23 +5,35 @@
  */
 package com.souklemdina.gui;
 
+import com.codename1.components.ImageViewer;
 import com.codename1.components.SpanButton;
 import com.codename1.io.ConnectionRequest;
+import com.codename1.io.Log;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.Button;
 import com.codename1.ui.Calendar;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
+import com.codename1.ui.Display;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
+import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.list.DefaultListModel;
+import com.codename1.ui.plaf.Style;
+import com.codename1.ui.plaf.UIManager;
 import com.souklemdina.entities.Produit;
 import com.souklemdina.services.ProduitService;
+import java.io.IOException;
+import rest.file.uploader.tn.FileUploader;
 
 /**
  *
@@ -103,15 +115,45 @@ public class AddProduct {
          f.add(quantite);
          TextField image=new TextField("", "image",20,TextField.ANY);
          f.add(image);
+//          FileUploader image = new FileUploader("http://localhost/SoukLemdinaPiDev/web/uploads/images/");
+//          f.add(image);
          Button valider=new Button("Valider");
          f.add(valider);
+         
+//         Form hi = new Form("Capture", new BorderLayout());
+//hi.setToolbar(new Toolbar());
+//Style s = UIManager.getInstance().getComponentStyle("Title");
+//FontImage icon = FontImage.createMaterial(FontImage.MATERIAL_CAMERA, s);
+//
+//ImageViewer iv = new ImageViewer(icon);
+//
+//hi.getToolbar().addCommandToRightBar("", icon, (ev) -> {
+//    Display.getInstance().openGallery((e) -> {
+//        if(e != null && e.getSource() != null) {
+//            try {
+//                DefaultListModel<Image> m = (DefaultListModel<Image>)iv.getImageList();
+//                Image img = Image.createImage((String)e.getSource());
+//                if(m == null) {
+//                    m = new DefaultListModel<>(img);
+//                    iv.setImageList(m);
+//                    iv.setImage(img);
+//                } else {
+//                    m.addItem(img);
+//                }
+//                m.setSelectedIndex(m.getSize() - 1);
+//            } catch(IOException err) {
+//                Log.e(err);
+//            }
+//        }
+//    }, Display.GALLERY_IMAGE);
+//});
       
          valider.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
             connectionRequest=new ConnectionRequest();
-            connectionRequest.setUrl("http://127.0.0.1:8000/api/add/produit/" 
+            connectionRequest.setUrl("http://localhost/SoukLemdinaPiDev/web/app_dev.php/api/add/produit/" 
                     +quantite.getText()+ '/'+image.getText()+
                     '/'+description.getText()+'/'+categorie.getText()+'/'+titre.getText()+'/'+prix.getText()+'/'+2);
             connectionRequest.addResponseListener((NetworkEvent evtl) -> {

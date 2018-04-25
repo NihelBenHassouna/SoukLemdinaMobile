@@ -116,6 +116,7 @@ public class Authentification {
         reg.addPointerPressedListener(e->{
         Register h = new Register(theme);
         h.getF().show();
+        
         });
       
         data.add(reg);

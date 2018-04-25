@@ -56,13 +56,28 @@ public class ToolBarCustom {
 
             }
         });
+        f.getToolbar().addCommandToSideMenu("MyProduit", null, new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                   
+                ProduitArtisant pa = new ProduitArtisant();
+                pa.getF().show();
+                
+
+
+                
+            }
+        });
         f.getToolbar().addCommandToSideMenu("Messages", null, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
-
+                   
                 
 
+
+                
             }
         });
          f.getToolbar().addCommandToSideMenu("statistique", null, new ActionListener() {
