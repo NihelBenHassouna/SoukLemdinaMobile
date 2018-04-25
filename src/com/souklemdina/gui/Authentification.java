@@ -38,7 +38,8 @@ public class Authentification {
     SpanButton reset;
     SpanButton fb;
     Label img;
-    
+    String role;
+    Integer userId;
     public Authentification(Resources theme){
         
         f = new Form(BoxLayout.y());
@@ -82,15 +83,28 @@ public class Authentification {
                       JSONParser j = new JSONParser();
                               
                     Map<String, Object> users = j.parseJSON(new CharArrayReader(json.toCharArray())); 
-                              
+                              System.out.println("roleeeee"+users.get("id")+users.get("nom"));
+                              userId = (int)Float.parseFloat(users.get("id").toString());
+                              System.out.println("rooollee"+users.get("roles").toString());
+                              System.out.println("USER ID =   "+userId);
                     if(users.get("password").equals("0")) 
                         {
                           Dialog.show("Erreur d'authentification", "Verifier votre Nom d'utilisateur ou mot de passe!!", "OK", "Annuler");
 
                          }
                     else {
+                        String x = new String(users.get("roles").toString());
+                        System.out.println(x);
+                        if (true)
+                        {
+                            
                             Home h = new Home();
                             h.getF().show();
+                        }else{
+                            ArtisanHome h = new ArtisanHome();
+                            h.getF().show();
+                        }
+                    
                     }
                     
                 } catch (IOException ex) {
