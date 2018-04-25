@@ -21,6 +21,8 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.util.Resources;
+import com.souklemdina.entities.User;
+import com.souklemdina.services.UserService;
 import java.io.IOException;
 import java.util.Map;
 
@@ -29,6 +31,7 @@ import java.util.Map;
  * @author Nihel
  */
 public class Authentification {
+    public static User connectedUser;
     Form f;
     Container icon;
     Container data;
@@ -38,7 +41,8 @@ public class Authentification {
     SpanButton reset;
     SpanButton fb;
     Label img;
-    
+    String role;
+    Integer userId;
     public Authentification(Resources theme){
         
         f = new Form(BoxLayout.y());
@@ -82,15 +86,30 @@ public class Authentification {
                       JSONParser j = new JSONParser();
                               
                     Map<String, Object> users = j.parseJSON(new CharArrayReader(json.toCharArray())); 
-                              
+                              System.out.println("roleeeee"+users.get("id")+users.get("nom"));
+                              userId = (int)Float.parseFloat(users.get("id").toString());
+//                              connectedUser = new User();
+//                              UserService us = new UserService();
+//                              connectedUser = us.GetUserById(userId);
+                              System.out.println(userId + "allalala");
                     if(users.get("password").equals("0")) 
                         {
                           Dialog.show("Erreur d'authentification", "Verifier votre Nom d'utilisateur ou mot de passe!!", "OK", "Annuler");
 
                          }
                     else {
+                        String x = new String(users.get("roles").toString());
+                        System.out.println(x);
+                        if (true)
+                        {
+                            
                             Home h = new Home();
                             h.getF().show();
+                        }else{
+                            ArtisanHome h = new ArtisanHome();
+                            h.getF().show();
+                        }
+                    
                     }
                     
                 } catch (IOException ex) {
@@ -122,6 +141,9 @@ public class Authentification {
         data.add(reg);
         f.add(icon);
         f.add(data);
+        UserService us = new UserService();
+        System.out.println("lé");
+        us.GetUserById(2);
     }
 
     public Form getF() {

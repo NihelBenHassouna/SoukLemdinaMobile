@@ -14,8 +14,17 @@ import java.util.Date;
  * @author Nihel
  */
 public class User {
+    public int id;
     public String nom;
     public String prenom;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     public String username;
     public String email;
     public String role;
@@ -36,6 +45,11 @@ public class User {
         this.phone = phone;
         this.adresse = adresse;
         this.image = image;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", username=" + username + ", email=" + email + ", role=" + role + ", password=" + password + ", birth_date=" + birth_date + ", phone=" + phone + ", adresse=" + adresse + ", image=" + image + '}';
     }
 
 
