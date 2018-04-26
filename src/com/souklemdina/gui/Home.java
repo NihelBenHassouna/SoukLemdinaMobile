@@ -7,10 +7,12 @@ package com.souklemdina.gui;
 
 import com.codename1.components.SpanButton;
 import com.codename1.components.SpanLabel;
+import com.codename1.db.Database;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
+import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BoxLayout;
@@ -18,6 +20,7 @@ import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import com.souklemdina.entities.Produit;
 import com.souklemdina.services.ProduitService;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -30,6 +33,7 @@ public class Home {
     Produit p = new Produit();
     SpanLabel lb;
     Label test;
+    Database db;
 
     public Home() {
         f = new Form(BoxLayout.y());
@@ -87,7 +91,21 @@ Container cnt = new Container();
         Label categorie = new Label(p.getCategorie());
         Label prix = new Label(p.getPrix().toString());
         Label description = new Label(p.getDescription().toString());
-
+        TextField quantite= new TextField();
+        
+        System.out.println(p.getId());
+        
+Button AddToCart=new Button("Add To Cart");
+AddToCart.addActionListener((l)->{
+   try{ System.out.println(quantite.getText());
+   db= Database.openOrCreate("souklemdina");
+             db.execute("insert into ProduitPanier (idProduit,quantite,prix)values('"+p.getId()+"','"+Integer.parseInt(quantite.getText())+"','"+p.getPrix()+"');");
+   System.out.println("done!!");
+   }
+              
+              catch(IOException ex){
+                  System.out.println(ex);}
+});
 
         Container cnt1 = new Container(BoxLayout.y());
         Container cnt2 = new Container(BoxLayout.x());
@@ -95,6 +113,8 @@ Container cnt = new Container();
         cnt1.add(categorie);
         cnt1.add(description);
         cnt1.add(prix);
+        cnt1.add(quantite);
+        cnt1.add(AddToCart);
         cnt2.add(cnt1);
        f.add(cnt2);
         return f ;

@@ -54,6 +54,7 @@ Container cnt = new Container();
         Container cnt2 = new Container(BoxLayout.x());
         cnt1.add(titre);
         cnt1.add(categorie);
+        
         cnt2.add(prix);
         
         cnt2.add(cnt1);
