@@ -27,6 +27,7 @@ import com.codename1.ui.plaf.Style;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.souklemdina.entities.Produit;
+import com.souklemdina.entities.User;
 import static com.souklemdina.gui.Authentification.connectedUser;
 import com.souklemdina.services.ProduitService;
 import com.souklemdina.services.UserService;
@@ -37,7 +38,8 @@ import java.util.ArrayList;
  * @author Nihel
  */
 public class Home {
-
+    public static  int NB_PRODUIT;
+    User user;
     Form f;
     Produit p = new Produit();
     SpanLabel lb;
@@ -50,6 +52,7 @@ public class Home {
     Label categorie;
     Label quantite;
     Label description;
+    Label artisan;
     ConnectionRequest connectionRequest;
     Resources theme;
 
@@ -63,7 +66,7 @@ public class Home {
         ProduitService ps = new ProduitService();
         ArrayList<Produit> l = ps.getList2();
         for (int i = 0; i < l.size(); i++) {
-
+             NB_PRODUIT=l.size();
             cnt.add(addItem(l.get(i)));
 
         }
@@ -132,6 +135,16 @@ public class Home {
         categorie = new Label(p.getCategorie());
         prix = new Label(p.getPrix().toString());
         description = new Label(p.getDescription().toString());
+        UserService us = new UserService();
+        int id = p.getIda();
+        user = new User();
+        user = us.GetUserById(id);
+        artisan = new Label(user.getNom());
+        artisan.addPointerPressedListener(e->{
+        OtherProfile op = new OtherProfile(user);
+        
+        op.getF().show();
+        });
         Label label = new Label();
 
         int deviceWidth = Display.getInstance().getDisplayWidth() / 4;
@@ -155,6 +168,7 @@ public class Home {
         cnt1.add(categorie);
         cnt1.add(description);
         cnt1.add(prix);
+        cnt1.add(artisan);
         cnt1.add(label);
         cnt1.add(btnn);
         cnt2.add(cnt1);
