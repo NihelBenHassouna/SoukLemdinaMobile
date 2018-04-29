@@ -64,7 +64,7 @@ protected CategorySeries buildCategoryDataset(String title, double[] values) {
 
 public Form createPieChartForm() {
     // Generate the values
-    double[] values = new double[]{60, 40};
+    double[] values = new double[]{Home.NB_PRODUIT, 40};
 
     // Set up the renderer
     int[] colors = new int[]{ColorUtil.BLUE, ColorUtil.GREEN, ColorUtil.MAGENTA, ColorUtil.YELLOW, ColorUtil.CYAN};

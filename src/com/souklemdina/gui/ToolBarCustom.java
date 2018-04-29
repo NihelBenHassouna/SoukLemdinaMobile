@@ -44,7 +44,10 @@ public class ToolBarCustom {
             @Override
             public void actionPerformed(ActionEvent evt) {
 
-                
+                ToolBarCustom tbs = new ToolBarCustom();
+                Home h = new Home();
+                h.setF(tbs.Customize(h.getF()));
+                h.getF().show();
 
             }
         });
@@ -74,8 +77,9 @@ public class ToolBarCustom {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
-             
+                ToolBarCustom tbs = new ToolBarCustom();
                 ProfileUser pf = new ProfileUser();
+                pf.setF(tbs.Customize(pf.getF()));
                 pf.getF().show();
 
             }
@@ -86,8 +90,9 @@ public class ToolBarCustom {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
-             
+             ToolBarCustom tbs = new ToolBarCustom();
                AddProduct ap = new AddProduct();
+               ap.setF(tbs.Customize(ap.getF()));
         ap.getF().show();
                 
             }
@@ -96,7 +101,9 @@ public class ToolBarCustom {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
+                ToolBarCustom tbs = new ToolBarCustom();
              Statistic s = new Statistic();
+             s.setF(tbs.Customize(s.getF()));
              s.createPieChartForm().show();
                 
 
@@ -106,8 +113,9 @@ public class ToolBarCustom {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
-                   
+                   ToolBarCustom tbs = new ToolBarCustom();
                 ProduitArtisant pa = new ProduitArtisant();
+                pa.setF(tbs.Customize(pa.getF()));
                 pa.getF().show();
                 
 

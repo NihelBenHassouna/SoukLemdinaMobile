@@ -38,7 +38,8 @@ import java.util.ArrayList;
  * @author Nihel
  */
 public class Home {
-
+    public static  int NB_PRODUIT;
+    User user;
     Form f;
     Produit p = new Produit();
     SpanLabel lb;
@@ -63,7 +64,7 @@ public class Home {
         ProduitService ps = new ProduitService();
         ArrayList<Produit> l = ps.getList2();
         for (int i = 0; i < l.size(); i++) {
-
+             NB_PRODUIT=l.size();
             cnt.add(addItem(l.get(i)));
 
         }
@@ -127,8 +128,14 @@ public class Home {
         description = new Label(p.getDescription().toString());
         UserService us = new UserService();
         int id = p.getIda();
-        User user = us.GetUserById(id);
+        user = new User();
+        user = us.GetUserById(id);
         artisan = new Label(user.getNom());
+        artisan.addPointerPressedListener(e->{
+        OtherProfile op = new OtherProfile(user);
+        
+        op.getF().show();
+        });
         Label label = new Label();
         int deviceWidth = Display.getInstance().getDisplayWidth() / 4;
         Image placeholder = Image.createImage(deviceWidth, deviceWidth); //square image set to 10% of screen width

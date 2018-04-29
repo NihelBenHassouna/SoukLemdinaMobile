@@ -16,6 +16,8 @@ import com.codename1.ui.Label;
 import com.codename1.ui.Tabs;
 import com.codename1.ui.URLImage;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.plaf.UIManager;
+import com.codename1.ui.util.Resources;
 import static com.souklemdina.gui.Authentification.connectedUser;
 
 /**
@@ -33,9 +35,10 @@ public class ProfileUser {
     Tabs abonnement;
     Tabs tab;
     Label nom, prenom, email, adresse, aboButton;
-
+    Resources theme;
     public ProfileUser() {
         //Déclaration
+        theme = UIManager.initFirstTheme("/theme");
         f = new Form();
         nom = new Label();
         prenom = new Label();
@@ -48,7 +51,7 @@ public class ProfileUser {
         all = new Container(BoxLayout.y());
         data = new Container(BoxLayout.x());
         info = new Container(BoxLayout.y());
-        
+        aboButton = new Label(theme.getImage("heart.png").scaled(50, 50));
         //Image du profil
         EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(50, 50, 0xffff0000), false);
         URLImage background = URLImage.createToStorage(placeholder, "userProfile.jpg", connectedUser.getImage());
