@@ -26,6 +26,7 @@ public class MyApplication {
     private Form current;
      Resources theme;
      Database db;
+     
 
     public void init(Object context) {
         theme = UIManager.initFirstTheme("/theme");
@@ -45,9 +46,9 @@ public class MyApplication {
 
          try{ 
          db= Database.openOrCreate("souklemdina");
-        db.execute(" Create table if not exists ProduitPanier(id INTEGER PRIMARY KEY,idProduit integer,quantite integer,prix double);");
+        db.execute(" Create table if not exists ProduitPanier (id INTEGER PRIMARY KEY,idUser integer,idProduit integer,quantite integer,prix double);");
         
-        // System.out.println("success");
+         System.out.println("success");
          }
          
          catch(IOException ex){

@@ -27,13 +27,13 @@ public class Panier {
      public Container addItem() {
          try{
          db=Database.openOrCreate("souklemdina");
-            Cursor c=db.executeQuery("select id from ProduitPanier");
+            Cursor c=db.executeQuery("select * from ProduitPanier where idUser="+Home.ConnectedUser);
         while(c.next())
                 {
                     Row row=c.getRow();
-                    int nom=row.getInteger(0);
-                    //double num=row.getDouble(1);
-                    System.out.println("id:"+nom);
+                    int id=row.getInteger(0);
+                    int idProduit =row.getInteger(1);
+                    System.out.println("id:"+id);
                 }}
          catch(IOException ex)
          {}

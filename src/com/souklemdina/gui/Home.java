@@ -34,6 +34,7 @@ public class Home {
     SpanLabel lb;
     Label test;
     Database db;
+    public static int ConnectedUser=1 ; 
 
     public Home() {
         f = new Form(BoxLayout.y());
@@ -99,7 +100,7 @@ Button AddToCart=new Button("Add To Cart");
 AddToCart.addActionListener((l)->{
    try{ System.out.println(quantite.getText());
    db= Database.openOrCreate("souklemdina");
-             db.execute("insert into ProduitPanier (idProduit,quantite,prix)values('"+p.getId()+"','"+Integer.parseInt(quantite.getText())+"','"+p.getPrix()+"');");
+             db.execute("insert into ProduitPanier (idProduit,idUser,quantite,prix)values('"+p.getId()+"','"+ConnectedUser+"','"+Integer.parseInt(quantite.getText())+"','"+p.getPrix()+"');");
    System.out.println("done!!");
    }
               
