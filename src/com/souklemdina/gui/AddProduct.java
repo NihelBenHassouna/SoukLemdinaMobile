@@ -5,34 +5,20 @@
  */
 package com.souklemdina.gui;
 
-import com.codename1.components.ImageViewer;
 import com.codename1.components.SpanButton;
 import com.codename1.io.ConnectionRequest;
-import com.codename1.io.Log;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.Button;
-import com.codename1.ui.Calendar;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
-import com.codename1.ui.Display;
-import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
-import com.codename1.ui.Image;
 import com.codename1.ui.Label;
-import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
-import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
-import com.codename1.ui.layouts.BorderLayout;
-import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.list.DefaultListModel;
-import com.codename1.ui.plaf.Style;
-import com.codename1.ui.plaf.UIManager;
 import com.souklemdina.entities.Produit;
-import com.souklemdina.services.ProduitService;
-import java.io.IOException;
+import static com.souklemdina.gui.Authentification.connectedUser;
 
 import rest.file.uploader.tn.FileUploader;
 
@@ -59,8 +45,13 @@ public class AddProduct {
     TextField descriptionTextField;
     SpanButton ajouter;
     Produit p= new Produit();
-    public AddProduct() throws Exception {
+
+    public AddProduct() {
+       
+
         f = new Form();
+         ToolBarCustom tbs = new ToolBarCustom();
+        f = tbs.Customize(f);
 //        labelContainer = new Container(BoxLayout.y());
 //        textFieldsContainer = new Container(BoxLayout.y());
 //        data = new Container(BoxLayout.x());
@@ -158,7 +149,7 @@ public class AddProduct {
             connectionRequest=new ConnectionRequest();
             connectionRequest.setUrl("http://localhost/SoukLemdinaPiDev/web/app_dev.php/api/add/produit/" 
                     +quantite.getText()+ '/'+image.getText()+
-                    '/'+description.getText()+'/'+categorie.getText()+'/'+titre.getText()+'/'+prix.getText()+'/'+2);
+                    '/'+description.getText()+'/'+categorie.getText()+'/'+titre.getText()+'/'+prix.getText()+'/'+connectedUser.getId());
             connectionRequest.addResponseListener((NetworkEvent evtl) -> {
             Dialog.show("Ajout produit", "ajout avec succes", "OK",null);
             Home h = new Home();

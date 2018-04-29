@@ -87,8 +87,9 @@ public class Authentification {
                               
                     Map<String, Object> users = j.parseJSON(new CharArrayReader(json.toCharArray())); 
                               System.out.println("roleeeee"+users.get("id")+users.get("nom"));
-                              userId = (int)Float.parseFloat(users.get("id").toString());
-//                              connectedUser = new User();
+                              
+                              
+                              //connectedUser = new User();
 //                              UserService us = new UserService();
 //                              connectedUser = us.GetUserById(userId);
                               System.out.println(userId + "allalala");
@@ -98,15 +99,24 @@ public class Authentification {
 
                          }
                     else {
-                        String x = new String(users.get("roles").toString());
-                        System.out.println(x);
-                        if (true)
+                        
+                        connectedUser = new User();
+                            userId = (int)Float.parseFloat(users.get("id").toString());
+                            UserService us = new UserService();
+                            connectedUser=us.GetUserById(userId);
+                            System.out.println("rolee"+connectedUser.getRole());
+                        if (connectedUser.getRole().equalsIgnoreCase("[ROLE_MEMBER, ROLE_USER]"))
                         {
                             
+                            ToolBarCustom tbs = new ToolBarCustom();
+                            
                             Home h = new Home();
+                            h.setF(tbs.Customize(h.getF()));
                             h.getF().show();
                         }else{
+                            ToolBarCustom tbs = new ToolBarCustom();
                             ArtisanHome h = new ArtisanHome();
+                            h.setF(tbs.Customize(h.getF()));
                             h.getF().show();
                         }
                     
@@ -153,4 +163,14 @@ public class Authentification {
     public void setF(Form f) {
         this.f = f;
     }
+
+    public User getConnectedUser() {
+        return connectedUser;
+    }
+
+    public void setConnectedUser(User connectedUser) {
+        this.connectedUser = connectedUser;
+    }
+    
+    
 }

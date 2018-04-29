@@ -22,6 +22,7 @@ import com.codename1.ui.URLImage;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.util.Resources;
 import com.souklemdina.entities.Produit;
 import com.souklemdina.services.ProduitService;
 import java.util.ArrayList;

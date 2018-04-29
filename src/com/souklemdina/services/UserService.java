@@ -49,10 +49,13 @@ public class UserService {
                     String adresse= User.get("adresse").toString();
                     
                     user.setEmail(email);
+                    String img = "http://localhost/pidev/profileimages/"+email+".png";
                     user.setAdresse(adresse);
                     user.setNom(nom);
                     user.setPrenom(prenom);
                     user.setId(id);
+                    user.setRole(role);
+                    user.setImage(img);
                     System.out.println(user.getNom() +"  NAME");
                 } catch (IOException ex) {
                     
