@@ -45,8 +45,7 @@ public class AddProduct {
     public AddProduct() {
        
         f = new Form();
-         ToolBarCustom tbs = new ToolBarCustom();
-        f = tbs.Customize(f);
+        
 //        labelContainer = new Container(BoxLayout.y());
 //        textFieldsContainer = new Container(BoxLayout.y());
 //        data = new Container(BoxLayout.x());

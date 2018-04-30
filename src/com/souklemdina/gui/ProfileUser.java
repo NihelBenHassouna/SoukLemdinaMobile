@@ -14,6 +14,7 @@ import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.Tabs;
+import com.codename1.ui.TextField;
 import com.codename1.ui.URLImage;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.UIManager;
@@ -36,6 +37,8 @@ public class ProfileUser {
     Tabs tab;
     Label nom, prenom, email, adresse, aboButton;
     Resources theme;
+    Container x;
+    Container y;
     public ProfileUser() {
         //Déclaration
         theme = UIManager.initFirstTheme("/theme");
@@ -64,7 +67,7 @@ public class ProfileUser {
         tab.getAllStyles().setBgColor(0xffffff);
         tab.addTab("Information", tab1);
         tab.addTab("Abonnement", tab2);
-
+        
         //User informations
         nom.setText(connectedUser.getNom());
         prenom.setText(connectedUser.getPrenom());
@@ -72,9 +75,18 @@ public class ProfileUser {
         data.add(myPic);
         data.add(info);
         
+        //User Information tab
+        x = new Container(new BoxLayout(BoxLayout.X_AXIS));
+        y = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        Label mail = new Label("Email");
+        Label phone = new Label("Phone");
+        
+        
+        x.add(mail).add(new Label(connectedUser.getEmail()));
+        y.add(x);
         
         //User abonnement list
-        tab2.add(new Label("abo"));
+        tab2.add(y);
         
         //Form add
         f.add(data);
