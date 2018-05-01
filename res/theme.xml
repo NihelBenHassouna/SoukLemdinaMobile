@@ -14,6 +14,7 @@
     <image name="Button.borderTopR_2.png" type="multi"  />
     <image name="cal_left_arrow.png" type="multi"  />
     <image name="cal_right_arrow.png" type="multi"  />
+    <image name="cancel1.png"  />
     <image name="chbox1.png" type="multi"  />
     <image name="chboxv1.png" type="multi"  />
     <image name="ComboBox.borderBottom_1.png" type="multi"  />
@@ -43,7 +44,9 @@
     <image name="Dialog.borderTop_1.png" type="multi"  />
     <image name="Dialog.borderTopL_1.png" type="multi"  />
     <image name="Dialog.borderTopR_1.png" type="multi"  />
+    <image name="follow.png"  />
     <image name="heart.png"  />
+    <image name="info.png"  />
     <image name="log.png"  />
     <image name="Menu.borderBottom_1.png" type="multi"  />
     <image name="Menu.borderBottomL_1.png" type="multi"  />

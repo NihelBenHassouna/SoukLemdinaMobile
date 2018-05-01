@@ -8,12 +8,8 @@ package com.souklemdina.gui;
 import com.codename1.components.ImageViewer;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
-import com.codename1.io.Log;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
-import com.codename1.location.Location;
-import com.codename1.location.LocationManager;
-import com.codename1.ui.BrowserComponent;
 import com.codename1.ui.Container;
 import com.codename1.ui.EncodedImage;
 import com.codename1.ui.Form;
@@ -21,15 +17,17 @@ import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.Tabs;
 import com.codename1.ui.URLImage;
-import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
+import com.souklemdina.entities.User;
 import static com.souklemdina.gui.Authentification.connectedUser;
+import com.souklemdina.services.UserService;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -52,16 +50,10 @@ public class ProfileUser {
     Container x1;
     Container x2;
     Container y;
-    Map<String, Object> result;
-    Map<String, Object> level1;
-    Map<String, Object> level2;
-    Map<String, Object> level3;
-    Map<String, Object> level4;
-    ArrayList<Double> rest;
-
+   
     public ProfileUser() {
-        
-        try {
+
+       
             //Déclaration
             theme = UIManager.initFirstTheme("/theme");
             f = new Form();
@@ -112,36 +104,51 @@ public class ProfileUser {
             y.add(x);
             y.add(x1);
             //User abonnement list
-           
-            String adress = connectedUser.getAdresse();
-            String adressPlaceId = searchLocations(adress);
-            ArrayList<Double> latlong = GetLongLat(adressPlaceId);
-            Double destinationLat = latlong.get(0);
-            Double destinationLng = latlong.get(1);
-            LocationManager locationManager = LocationManager.getLocationManager();
-            Location location = locationManager.getCurrentLocation();
-            Double originLat = location.getLatitude();
-            Double originLng = location.getLongitude();
-           
-            BrowserComponent browser = new BrowserComponent();
-            browser.setScrollVisible(false);
-            browser.setURL("http://localhost/SoukLemdinaPiDev/web/app_dev.php/api/map?originLat=36.8942449&originLng=10.2762523&destinationLat="+destinationLat+"&destinationLng="+destinationLng);
-            browser.setScrollable(false);
-            y.add(browser);
-             tab1.add(y);
+
             
-            //browser.setURL("http://"+WebService.ip+"/pidev2/web/app_dev.php/covoiturage/api/map?departid=" + cov.getDepart_id() + "&destinationid=" + cov.getDestination_id());
+
+            ConnectionRequest con = new ConnectionRequest();
+            con.setUrl("http://localhost/SoukLemdinaPiDev/web/app_dev.php/api/get/abo?idM=" + connectedUser.getId());
+            con.addResponseListener((NetworkEvent e) -> {
+                try {
+                    String json = new String(con.getResponseData());
+                    JSONParser j = new JSONParser();
+                    
+                    
+                    HashMap<String, Object> abos = (HashMap) j.parseJSON(new InputStreamReader(new ByteArrayInputStream(con.getResponseData()), "UTF-8"));
+                    System.out.println(abos);
+                    // Map<String, Object> test = (Map) abos.get("root");
+
+                    ArrayList<Object> test = (ArrayList<Object>) abos.get("root");
+                    for(int i=0; i<test.size();i++){
+                        Map<String, Object> artisan = (Map) test.get(i);
+                        System.out.println(artisan.get("idartisan"));
+                        Map<String, Object> last = (Map) artisan.get("idartisan");
+                        
+                        int id = (int) Float.parseFloat(last.get("id").toString());
+                        System.out.println(id);
+                        User u = new User();
+                        UserService us = new UserService();
+                        u = us.GetUserById(id);
+                        Container cnt = new Container();
+                        cnt = follower(u);
+                        tab2.add(cnt);
+                    }
+                } catch (IOException ex) {
+                 //   Logger.getLogger(ProfileUser.class.getName()).log(Level.SEVERE, null, ex);
+                
+                } 
+
+            });
+            NetworkManager.getInstance().addToQueue(con);
+
             f.add(data);
             f.add(tab);
             f.add(profil);
-//        } catch (IOException ex) {
-//
-//        }
-        } catch (IOException ex) {
-            
-        }
-    }
 
+        
+    }
+    
     public Form getF() {
         return f;
     }
@@ -150,66 +157,23 @@ public class ProfileUser {
         this.f = f;
     }
 
-    String searchLocations(String text) {
-        try {
-            if (text.length() > 0) {
-                ConnectionRequest r = new ConnectionRequest();
-                r.setPost(false);
-                r.setUrl("https://maps.googleapis.com/maps/api/place/autocomplete/json");
-                r.addArgument("key", "AIzaSyCO7IzgeQg0TI-XT2HZl3AQ_T4whs9A4AI");
-                r.addArgument("input", text);
-                NetworkManager.getInstance().addToQueueAndWait(r);
-                Map<String, Object> result = new JSONParser().parseJSON(new InputStreamReader(new ByteArrayInputStream(r.getResponseData()), "UTF-8"));
-
-                ArrayList places = new ArrayList<>();
-                places = (ArrayList) (result.get("predictions"));
-
-                Map<String, Object> finale = (Map<String, Object>) places.get(0);
-                String placeId = (String) finale.get("place_id");
-                ArrayList<Double> test = GetLongLat(placeId);
-
-                return placeId;
-
-//                String[] res = Result.fromContent(result).getAsStringArray("//description");
-//                return res;
-            }
-        } catch (Exception err) {
-            Log.e(err);
-        }
-        return null;
-    }
-
-    public ArrayList<Double> GetLongLat(String placeId) {
-        ConnectionRequest con = new ConnectionRequest();
-        con.setPost(false);
-        con.setUrl("https://maps.googleapis.com/maps/api/place/details/json?placeid=" + placeId + "&key=AIzaSyCO7IzgeQg0TI-XT2HZl3AQ_T4whs9A4AI");
-
-        con.addResponseListener(new ActionListener<NetworkEvent>() {
-
-            @Override
-            public void actionPerformed(NetworkEvent evt) {
-                try {
-
-                    result = new JSONParser().parseJSON(new InputStreamReader(new ByteArrayInputStream(con.getResponseData()), "UTF-8"));
-
-//                    System.out.println("level 1" +level1);
-                    level1 = (Map) result.get("result");
-                    level2 = (Map) level1.get("geometry");
-                    level3 = (Map) level2.get("location");
-                    double lat = (double) level3.get("lat");
-                    double lng = (double) level3.get("lng");
-                    rest = new ArrayList<>();
-                    rest.add(lat);
-                    rest.add(lng);
-
-                } catch (IOException ex) {
-
-                }
-            }
+   
+    public Container follower(User u){
+        Container cnt = new Container(new BoxLayout(BoxLayout.X_AXIS));
+        Container data = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        Label name = new Label(u.getNom()+" "+u.getPrenom());
+        Label email = new Label(u.getEmail());
+        data.add(name).add(email);
+        Label photo = new Label(theme.getImage("follow.png").scaled(30, 30));
+        Label desabo = new Label(theme.getImage("cancel1.png").scaled(15, 15));
+        desabo.addPointerPressedListener(e->{
+        UserService us = new UserService();
+        us.Desabo(connectedUser.getId(), u.getId());
+        ProfileUser p = new ProfileUser();
+        p.getF().show();
         });
-        NetworkManager.getInstance().addToQueueAndWait(con);
-        return rest;
-
+        cnt.add(photo).add(data).add(desabo);
+        return cnt;
     }
 
 }
