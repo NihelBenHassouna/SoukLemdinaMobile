@@ -11,8 +11,13 @@ import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
+import com.souklemdina.entities.Abonnement;
 import com.souklemdina.entities.User;
+import static com.souklemdina.gui.Authentification.connectedUser;
+import static com.souklemdina.gui.OtherProfile.targetUserId;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Map;
 
 /**
@@ -22,6 +27,7 @@ import java.util.Map;
 public class UserService {
     User user;
     ConnectionRequest connectionRequest;
+    Map<String, Object> abos;
     public User GetUserById(int id){
         System.out.println("ey");
         connectionRequest = new ConnectionRequest();
@@ -74,5 +80,41 @@ public class UserService {
         
     }
     
-    
-}
+     public void addAbo(Abonnement a) {
+        ConnectionRequest con = new ConnectionRequest();
+        String Url = "http://localhost/SoukLemdinaPiDev/web/app_dev.php/api/add/abo?idartisan="+a.getIdArtisan()+"&idmembre="+a.getIdMembre();
+        con.setUrl(Url);
+
+        System.out.println("AJOUTEEEEEEEEEEE");
+
+        con.addResponseListener((e) -> {
+            String str = new String(con.getResponseData());
+            System.out.println(str);
+
+        });
+        NetworkManager.getInstance().addToQueueAndWait(con);
+    }
+     
+     
+     
+     
+     public boolean IsAbo(int idMembre, int idArtisan){
+         
+         ConnectionRequest con = new ConnectionRequest();
+                con.setUrl("http://localhost/SoukLemdinaPiDev/web/app_dev.php/api/abo?idM=" + idMembre + "&idA=" + idArtisan);
+                con.addResponseListener((NetworkEvent evt) -> {
+                    String json = new String(con.getResponseData());
+                    JSONParser j = new JSONParser();
+                    
+                    try {
+                        abos = j.parseJSON(new InputStreamReader(new ByteArrayInputStream(con.getResponseData()), "UTF-8"));
+                    } catch (IOException ex) {}
+         });
+                NetworkManager.getInstance().addToQueue(con);
+                return abos.size()!=0;
+            }
+
+
+     }
+
+
