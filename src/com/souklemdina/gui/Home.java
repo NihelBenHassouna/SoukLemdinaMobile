@@ -15,6 +15,7 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 
 import com.codename1.ui.Button;
+import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
@@ -46,7 +47,7 @@ import java.util.ArrayList;
  *
  * @author Nihel
  */
-public class Home {
+ public class Home {
     public static  int NB_PRODUIT;
     User user;
     Form f;
@@ -55,7 +56,7 @@ public class Home {
     Label test;
 
     Database db;
-    public static int ConnectedUser=1 ; 
+    
 
     Label titre;
     Label prix;
@@ -63,6 +64,7 @@ public class Home {
     Label image;
 
     Label categorie;
+    TextField quantitePanier;
     Label quantite;
     Label description;
     Label artisan;
@@ -115,6 +117,7 @@ public class Home {
         cnt1.add(titre);
         cnt1.add(categorie);
         cnt1.add(prix);
+        
 
         cnt1.add(btn);
 
@@ -150,6 +153,7 @@ public class Home {
         categorie = new Label(p.getCategorie());
         prix = new Label(p.getPrix().toString());
         description = new Label(p.getDescription().toString());
+        quantitePanier = new TextField();
         UserService us = new UserService();
         int id = p.getIda();
         user = new User();
@@ -163,21 +167,12 @@ public class Home {
         Label categorie = new Label(p.getCategorie());
         Label prix = new Label(p.getPrix().toString());
         Label description = new Label(p.getDescription().toString());
-        TextField quantite= new TextField();
+        TextField quantitePanier=new TextField();
+       // TextField quantitePanier= new TextField();
         
         System.out.println(p.getId());
         
-Button AddToCart=new Button("Add To Cart");
-AddToCart.addActionListener((l)->{
-   try{ System.out.println(quantite.getText());
-   db= Database.openOrCreate("souklemdina");
-             db.execute("insert into ProduitPanier (idProduit,idUser,quantite,prix)values('"+p.getId()+"','"+ConnectedUser+"','"+Integer.parseInt(quantite.getText())+"','"+p.getPrix()+"');");
-   System.out.println("done!!");
-   }
-              
-              catch(IOException ex){
-                  System.out.println(ex);}
-});
+
 
 
         op.getF().show();
@@ -199,6 +194,8 @@ AddToCart.addActionListener((l)->{
             ap.setF(tbs.Customize(ap.getF()));
             ap.getF().show();
         });
+        
+   
 
         Container cnt1 = new Container(BoxLayout.y());
         Container cnt2 = new Container(BoxLayout.x());
@@ -206,13 +203,26 @@ AddToCart.addActionListener((l)->{
         cnt1.add(categorie);
         cnt1.add(description);
         cnt1.add(prix);
-
-        cnt1.add(quantite);
+        cnt1.add(quantitePanier); 
+        
+    Button AddToCart=new Button("Add To Cart");
+AddToCart.addActionListener((l)->{
+   try{ System.out.println(quantitePanier.getText());
+   db= Database.openOrCreate("souklemdina");
+             db.execute("insert into ProduitPanier (nomProduit,idUser,quantite,prix)values('"+p.getTitre()+"','"+Authentification.connectedUser.getId()+"','"+Integer.parseInt(quantitePanier.getText())+"','"+p.getPrix()+"');");
+   System.out.println("done!!");
+   }
+              
+              catch(IOException ex){
+                  System.out.println(ex);}
+});
+        //cnt1.add(quantite);
+        
         cnt1.add(AddToCart);
 
-        cnt1.add(artisan);
-        cnt1.add(label);
-        cnt1.add(btnn);
+        //cnt1.add(artisan);
+       // cnt1.add(label);
+        //cnt1.add(btnn);
 
         cnt2.add(cnt1);
         f.add(cnt2);

@@ -60,9 +60,9 @@ public class MyApplication {
 
          try{ 
          db= Database.openOrCreate("souklemdina");
-        db.execute(" Create table if not exists ProduitPanier (id INTEGER PRIMARY KEY,idUser integer,idProduit integer,quantite integer,prix double);");
+        db.execute(" Create table if not exists ProduitPanier(id INTEGER PRIMARY KEY,idUser integer,nomProduit text,quantite integer,prix double);");
         
-         System.out.println("success");
+         System.out.println("success created");
          }
          
          catch(IOException ex){
