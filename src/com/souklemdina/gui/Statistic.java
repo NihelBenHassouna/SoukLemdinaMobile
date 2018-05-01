@@ -12,6 +12,8 @@ import com.codename1.charts.renderers.SimpleSeriesRenderer;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.charts.views.PieChart;
 import com.codename1.ui.Form;
+import com.codename1.ui.events.ActionEvent;
+import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 
 /**
@@ -24,13 +26,7 @@ public class Statistic {
  */
         public Form f;
 
-    public Form getF() {
-        return f;
-    }
-
-    public void setF(Form f) {
-        this.f = f;
-    }
+   
 
 private DefaultRenderer buildCategoryRenderer(int[] colors) {
     DefaultRenderer renderer = new DefaultRenderer();
@@ -89,7 +85,25 @@ public Form createPieChartForm() {
     // Create a form and show it.
     Form f = new Form("Budget", new BorderLayout());
     f.add(BorderLayout.CENTER, c);
+    f.getToolbar().addCommandToLeftBar("Return Home", null, new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    ToolBarCustom tbs = new ToolBarCustom();
+                    Home h = new Home();
+                    h.setF(tbs.Customize(h.getF()));
+                    h.getF().show();
+
+                }
+            });
     return f;
 
 }   
+ public Form getF() {
+        return f;
+    }
+
+    public void setF(Form f) {
+        this.f = f;
+    }
 }
