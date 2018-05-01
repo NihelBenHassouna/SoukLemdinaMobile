@@ -14,6 +14,7 @@ import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
+
 import com.codename1.ui.Tabs;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
@@ -42,7 +43,7 @@ public class OtherProfile {
     public static int targetUserId;
     Resources theme;
     Button aboButton;
-
+      
     public OtherProfile(User user) {
         theme = UIManager.initFirstTheme("/theme");
         f = new Form();
@@ -75,12 +76,11 @@ public class OtherProfile {
                             // Logger.getLogger(OtherProfile.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         System.out.println("tesst ABOOOO " + abos.toString());
-                       
 
                     }
 
                 });
-                 NetworkManager.getInstance().addToQueue(con);
+                NetworkManager.getInstance().addToQueue(con);
             }
 
         });

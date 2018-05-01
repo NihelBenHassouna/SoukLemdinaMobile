@@ -60,8 +60,51 @@ public class AddProduct {
        
 
         f = new Form();
-         ToolBarCustom tbs = new ToolBarCustom();
-        f = tbs.Customize(f);
+
+        
+//        labelContainer = new Container(BoxLayout.y());
+//        textFieldsContainer = new Container(BoxLayout.y());
+//        data = new Container(BoxLayout.x());
+//        titre = new Label("Titre");
+//        description = new Label("Description");
+//        prix = new Label("Prix");
+//        categorie = new Label("Categorie");
+//        quantite = new Label("quantité");
+//        titreTextField = new TextField();
+//        prixTextField= new TextField();
+//        categorieTextField= new TextField();
+//        quantiteTextField= new TextField();
+//        descriptionTextField= new TextField();
+//        
+//        p.setTitre(titreTextField.getText());
+//        p.setDescription(descriptionTextField.getText());
+//        p.setCategorie(categorieTextField.getText());
+//        p.setPrix(null);
+//        p.setQuantite(10);
+//        p.setIda(38);
+//    labelContainer.add(titre).add(description).add(prix).add(quantite).add(categorie).add(ajouter);
+//        textFieldsContainer.add(titreTextField).add(descriptionTextField).add(prixTextField).add(quantiteTextField).add(categorieTextField);
+//        data.add(labelContainer);
+//        data.add(textFieldsContainer);
+//        f.add(data);
+//
+//        ajouter = new SpanButton("Ajouter");
+//        ajouter.addActionListener(e-> {
+//            connectionRequest=new ConnectionRequest();
+//            connectionRequest.setUrl("http://localhost/SoukLemdinaPiDev/web/app_dev.php/api/add/produit?titre=" + p.getTitre()+ "&categorie="+p.getCategorie()+
+//                "&prix="+p.getPrix()+"&description="+p.getDescription()+"&quantite="+p.getQuantite()+"&ida="+p.getIda());
+//        System.out.println("fucking ajout" + p.toString());
+//            connectionRequest.addResponseListener((evt) -> {
+//                    System.out.println("fucking ajout");
+//            Dialog.show("Ajout evenement", "ajout avec succes", "OK",null);
+//            Home h = new Home();
+//            h.getF().show();
+//            
+//            });
+//         NetworkManager.getInstance().addToQueue(connectionRequest);
+//           
+//            
+//        });
 
        
          TextField titre = new TextField("","titre",20,TextField.ANY);

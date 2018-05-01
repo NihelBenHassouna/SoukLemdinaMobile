@@ -28,16 +28,6 @@ public class ToolBarCustom {
     }
 
     public Form Customize(Form f) {
-        
-           f.getToolbar().addCommandToSideMenu("Souk Lemdina", null, new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-
-                
-
-            }
-        });
 
         f.getToolbar().addCommandToSideMenu("Home", null, new ActionListener() {
 
@@ -56,6 +46,7 @@ public class ToolBarCustom {
             @Override
             public void actionPerformed(ActionEvent evt) {
 
+
               ToolBarCustom tbs = new ToolBarCustom();
                 Panier p = new Panier();
                 p.setF(tbs.Customize(p.getF()));
@@ -63,20 +54,16 @@ public class ToolBarCustom {
 
             }
         });
-        
+
         f.getToolbar().addCommandToSideMenu("Messages", null, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
-                   
-                
 
-
-                
             }
         });
-        
-         f.getToolbar().addCommandToSideMenu("Profil", null, new ActionListener() {
+
+        f.getToolbar().addCommandToSideMenu("Profil", null, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -87,57 +74,50 @@ public class ToolBarCustom {
 
             }
         });
-         if (connectedUser.getRole().equalsIgnoreCase("[ROLE_ARTISAN, ROLE_USER]")){
-         f.getToolbar().addCommandToSideMenu("ajouter produit", null, new ActionListener() {
-                
+        if (connectedUser.getRole().equalsIgnoreCase("[ROLE_ARTISAN, ROLE_USER]")) {
+            f.getToolbar().addCommandToSideMenu("ajouter produit", null, new ActionListener() {
 
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-             ToolBarCustom tbs = new ToolBarCustom();
-               AddProduct ap = new AddProduct();
-               ap.setF(tbs.Customize(ap.getF()));
-        ap.getF().show();
-                
-            }
-        });
-          f.getToolbar().addCommandToSideMenu("statistique", null, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    ToolBarCustom tbs = new ToolBarCustom();
+                    AddProduct ap = new AddProduct();
+                    ap.setF(tbs.Customize(ap.getF()));
+                    ap.getF().show();
 
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                ToolBarCustom tbs = new ToolBarCustom();
-             Statistic s = new Statistic();
-             s.setF(tbs.Customize(s.getF()));
-             s.createPieChartForm().show();
-                
+                }
+            });
+            f.getToolbar().addCommandToSideMenu("statistique", null, new ActionListener() {
 
-            }
-        });
-          f.getToolbar().addCommandToSideMenu("MyProduit", null, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    ToolBarCustom tbs = new ToolBarCustom();
+                    Statistic s = new Statistic();
+                   // s.setF(tbs.Customize(s.getF()));
+                    s.createPieChartForm().show();
 
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                   ToolBarCustom tbs = new ToolBarCustom();
-                ProduitArtisant pa = new ProduitArtisant();
-                pa.setF(tbs.Customize(pa.getF()));
-                pa.getF().show();
-                
+                }
+            });
+            f.getToolbar().addCommandToSideMenu("MyProduit", null, new ActionListener() {
 
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    ToolBarCustom tbs = new ToolBarCustom();
+                    ProduitArtisant pa = new ProduitArtisant();
+                    pa.setF(tbs.Customize(pa.getF()));
+                    pa.getF().show();
 
-                
-            }
-        });
-         }
+                }
+            });
+        }
         return f;
     }
 
-    
     public void setF(Form f) {
         this.f = f;
     }
 
-    
     public Form getF() {
         return f;
     }
-    
+
 }
