@@ -56,7 +56,10 @@ public class ToolBarCustom {
             @Override
             public void actionPerformed(ActionEvent evt) {
 
-                
+              ToolBarCustom tbs = new ToolBarCustom();
+                Panier p = new Panier();
+                p.setF(tbs.Customize(p.getF()));
+                p.getF().show();  
 
             }
         });

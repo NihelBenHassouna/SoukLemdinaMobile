@@ -25,7 +25,7 @@ public class UserService {
     public User GetUserById(int id){
         System.out.println("ey");
         connectionRequest = new ConnectionRequest();
-        connectionRequest.setUrl("http://localhost/SoukLemdinaPiDev/web/app_dev.php/api/get/user?id="+id);
+        connectionRequest.setUrl("http://localhost/SoukLemdinaPiDev/web/app_dev.php/api/get/user?id="+1);
         connectionRequest.addResponseListener(new ActionListener<NetworkEvent>() {
 
             @Override

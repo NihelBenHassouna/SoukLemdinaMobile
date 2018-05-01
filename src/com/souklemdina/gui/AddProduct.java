@@ -30,7 +30,7 @@ import com.souklemdina.entities.Produit;
 import static com.souklemdina.gui.Authentification.connectedUser;
 import java.io.IOException;
 
-import rest.file.uploader.tn.FileUploader;
+//import rest.file.uploader.tn.FileUploader;
 
 
 /**
