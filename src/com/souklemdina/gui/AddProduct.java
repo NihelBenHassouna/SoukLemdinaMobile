@@ -80,7 +80,7 @@ public class AddProduct {
 
          Button valider=new Button("Valider");
          f.add(valider);
-         FileUploader fu = new FileUploader("localhost/SoukLemdinaPiDev/web/");
+        // FileUploader fu = new FileUploader("localhost/SoukLemdinaPiDev/web/");
 
 f.setToolbar(new Toolbar());
 Style s = UIManager.getInstance().getComponentStyle("Title");
