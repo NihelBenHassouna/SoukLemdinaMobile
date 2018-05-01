@@ -28,7 +28,10 @@ import com.codename1.ui.plaf.Style;
 import com.codename1.ui.plaf.UIManager;
 import com.souklemdina.entities.Produit;
 import static com.souklemdina.gui.Authentification.connectedUser;
+import com.souklemdina.services.ProduitService;
 import java.io.IOException;
+
+
 
 //import rest.file.uploader.tn.FileUploader;
 
@@ -53,10 +56,13 @@ public class AddProduct {
     TextField categorieTextField;
     TextField quantiteTextField;
     TextField descriptionTextField;
+    ImageViewer image;
     SpanButton ajouter;
+    Button choose ; 
     Produit p= new Produit();
+    public static String path;
 
-    public AddProduct() {
+    public AddProduct()  {
        
 
         f = new Form();
@@ -117,60 +123,89 @@ public class AddProduct {
          f.add(prix);
          TextField quantite=new TextField("", "quantité",20,TextField.ANY);
          f.add(quantite);
-        TextField image=new TextField("", "image",20,TextField.ANY);
+                 choose=new Button("choose image");
+
+                 f.add(choose);
+        image =new ImageViewer();
         
                   f.add(image);
 
-         Button valider=new Button("Valider");
-         f.add(valider);
-         FileUploader fu = new FileUploader("localhost/SoukLemdinaPiDev/web/");
-
-f.setToolbar(new Toolbar());
-Style s = UIManager.getInstance().getComponentStyle("Title");
-FontImage icon = FontImage.createMaterial(FontImage.MATERIAL_CAMERA, s);
-
-ImageViewer iv = new ImageViewer(icon);
-
-f.getToolbar().addCommandToRightBar("", icon, (ev) -> {
-    Display.getInstance().openGallery((e) -> {
-        
-        
-        
-        if(e != null && e.getSource() != null) {
-            try {
-                DefaultListModel<Image> m = (DefaultListModel<Image>)iv.getImageList();
-                Image img = Image.createImage((String)e.getSource());
-                if(m == null) {
-                    m = new DefaultListModel<>(img);
-                    iv.setImageList(m);
-                    iv.setImage(img);
-                    System.out.println(img.getImage().toString()+ "hhhhhhhhhhhhhhhhhhhhhh");
-                } else {
-                    m.addItem(img);
-                }
-                m.setSelectedIndex(m.getSize() - 1);
-            } catch(IOException err) {
-                Log.e(err);
+choose.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                ProduitService s=new ProduitService();
+           s.browseImage(image);
+          
             }
-        }
-    }, Display.GALLERY_IMAGE);
+        });
+                  
+                  
+                  
+                  Button valider=new Button("Valider");
+         f.add(valider);
+        
 
-});
-      
+
+//         f.setToolbar(new Toolbar());
+//Style s = UIManager.getInstance().getComponentStyle("Title");
+//FontImage icon = FontImage.createMaterial(FontImage.MATERIAL_CAMERA, s);
+//
+//ImageViewer iv = new ImageViewer(icon);
+//
+//f.getToolbar().addCommandToRightBar("", icon, (ev) -> {
+//    Display.getInstance().openGallery((e) -> {
+// 
+//        if(e != null && e.getSource() != null) {
+//            try {
+//                DefaultListModel<Image> m = (DefaultListModel<Image>)iv.getImageList();
+//                Image img = Image.createImage((String)e.getSource());
+//                System.out.println(e.getSource()+"source");
+//                path = (String)e.getSource();
+//                
+//                int last =path.lastIndexOf("/");
+//                String finalPath= path.substring(last+1, path.length());
+//                System.out.println("IMAGE   "+finalPath);
+//                System.out.println("image path"+path);
+//                image.setText(finalPath);
+//                if(m == null) {
+//                    m = new DefaultListModel<>(img);
+//                    iv.setImageList(m);
+//                    iv.setImage(img);
+//                    System.out.println(img.getImage().toString()+ "hhhhhhhhhhhhhhhhhhhhhh");
+//                } else {
+//                    m.addItem(img);
+//                }
+//                m.setSelectedIndex(m.getSize() - 1);
+//            } catch(IOException err) {
+//                Log.e(err);
+//            }
+//        }
+//    }, Display.GALLERY_IMAGE);
+//
+//});
+// FileUploader fu = new FileUploader("localhost/SoukLemdinaPiDev/web/");
+//        try {
+//            String ss= fu.upload(path);
+//            System.out.println(ss+"loooooooooool");
+//        } catch (Exception ex) {
+//        }      
+
          valider.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
             connectionRequest=new ConnectionRequest();
+                System.out.println(path+" last chance");
             connectionRequest.setUrl("http://localhost/SoukLemdinaPiDev/web/app_dev.php/api/add/produit/" 
-                    +quantite.getText()+ '/'+image.getText()+
+                    +quantite.getText()+ '/'+image.getImage().getImageName()+
                     '/'+description.getText()+'/'+categorie.getText()+'/'+titre.getText()+'/'+prix.getText()+'/'+connectedUser.getId());
             connectionRequest.addResponseListener((NetworkEvent evtl) -> {
             Dialog.show("Ajout produit", "ajout avec succes", "OK",null);
             Home h = new Home();
             h.getF().show();
             
-            });
+                
+                        });
          NetworkManager.getInstance().addToQueue(connectionRequest);
             }
         });
