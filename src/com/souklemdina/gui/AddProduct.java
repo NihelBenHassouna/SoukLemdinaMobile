@@ -5,20 +5,33 @@
  */
 package com.souklemdina.gui;
 
+import com.codename1.components.ImageViewer;
 import com.codename1.components.SpanButton;
 import com.codename1.io.ConnectionRequest;
+import com.codename1.io.Log;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
+import com.codename1.ui.Display;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
+import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.list.DefaultListModel;
+import com.codename1.ui.plaf.Style;
+import com.codename1.ui.plaf.UIManager;
 import com.souklemdina.entities.Produit;
 import static com.souklemdina.gui.Authentification.connectedUser;
+import java.io.IOException;
+
+//import rest.file.uploader.tn.FileUploader;
+
 
 /**
  *
@@ -42,9 +55,12 @@ public class AddProduct {
     TextField descriptionTextField;
     SpanButton ajouter;
     Produit p= new Produit();
+
     public AddProduct() {
        
+
         f = new Form();
+
         
 //        labelContainer = new Container(BoxLayout.y());
 //        textFieldsContainer = new Container(BoxLayout.y());
@@ -89,6 +105,7 @@ public class AddProduct {
 //           
 //            
 //        });
+
        
          TextField titre = new TextField("","titre",20,TextField.ANY);
          f.add(titre);
@@ -100,40 +117,45 @@ public class AddProduct {
          f.add(prix);
          TextField quantite=new TextField("", "quantité",20,TextField.ANY);
          f.add(quantite);
-         TextField image=new TextField("", "image",20,TextField.ANY);
-         f.add(image);
-//          FileUploader image = new FileUploader("http://localhost/SoukLemdinaPiDev/web/uploads/images/");
-//          f.add(image);
+        TextField image=new TextField("", "image",20,TextField.ANY);
+        
+                  f.add(image);
+
          Button valider=new Button("Valider");
          f.add(valider);
-         
-//         Form hi = new Form("Capture", new BorderLayout());
-//hi.setToolbar(new Toolbar());
-//Style s = UIManager.getInstance().getComponentStyle("Title");
-//FontImage icon = FontImage.createMaterial(FontImage.MATERIAL_CAMERA, s);
-//
-//ImageViewer iv = new ImageViewer(icon);
-//
-//hi.getToolbar().addCommandToRightBar("", icon, (ev) -> {
-//    Display.getInstance().openGallery((e) -> {
-//        if(e != null && e.getSource() != null) {
-//            try {
-//                DefaultListModel<Image> m = (DefaultListModel<Image>)iv.getImageList();
-//                Image img = Image.createImage((String)e.getSource());
-//                if(m == null) {
-//                    m = new DefaultListModel<>(img);
-//                    iv.setImageList(m);
-//                    iv.setImage(img);
-//                } else {
-//                    m.addItem(img);
-//                }
-//                m.setSelectedIndex(m.getSize() - 1);
-//            } catch(IOException err) {
-//                Log.e(err);
-//            }
-//        }
-//    }, Display.GALLERY_IMAGE);
-//});
+         FileUploader fu = new FileUploader("localhost/SoukLemdinaPiDev/web/");
+
+f.setToolbar(new Toolbar());
+Style s = UIManager.getInstance().getComponentStyle("Title");
+FontImage icon = FontImage.createMaterial(FontImage.MATERIAL_CAMERA, s);
+
+ImageViewer iv = new ImageViewer(icon);
+
+f.getToolbar().addCommandToRightBar("", icon, (ev) -> {
+    Display.getInstance().openGallery((e) -> {
+        
+        
+        
+        if(e != null && e.getSource() != null) {
+            try {
+                DefaultListModel<Image> m = (DefaultListModel<Image>)iv.getImageList();
+                Image img = Image.createImage((String)e.getSource());
+                if(m == null) {
+                    m = new DefaultListModel<>(img);
+                    iv.setImageList(m);
+                    iv.setImage(img);
+                    System.out.println(img.getImage().toString()+ "hhhhhhhhhhhhhhhhhhhhhh");
+                } else {
+                    m.addItem(img);
+                }
+                m.setSelectedIndex(m.getSize() - 1);
+            } catch(IOException err) {
+                Log.e(err);
+            }
+        }
+    }, Display.GALLERY_IMAGE);
+
+});
       
          valider.addActionListener(new ActionListener() {
 
