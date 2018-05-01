@@ -31,7 +31,9 @@ public class UserService {
     public User GetUserById(int id) {
 
         connectionRequest = new ConnectionRequest();
+
         connectionRequest.setUrl("http://localhost/SoukLemdinaPiDev/web/app_dev.php/api/get/user?id=" + id);
+
         connectionRequest.addResponseListener(new ActionListener<NetworkEvent>() {
 
             @Override
