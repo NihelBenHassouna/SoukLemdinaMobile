@@ -28,8 +28,12 @@ import com.codename1.ui.plaf.Style;
 import com.codename1.ui.plaf.UIManager;
 import com.souklemdina.entities.Produit;
 import static com.souklemdina.gui.Authentification.connectedUser;
+
+import java.io.IOException;
+
 import com.souklemdina.services.ProduitService;
 import java.io.IOException;
+
 
 
 
@@ -66,6 +70,10 @@ public class AddProduct {
        
 
         f = new Form();
+
+         ToolBarCustom tbs = new ToolBarCustom();
+        f = tbs.Customize(f);
+
 
         
 //        labelContainer = new Container(BoxLayout.y());
@@ -112,6 +120,7 @@ public class AddProduct {
 //            
 //        });
 
+
        
          TextField titre = new TextField("","titre",20,TextField.ANY);
          f.add(titre);
@@ -143,6 +152,42 @@ choose.addActionListener(new ActionListener() {
                   
                   Button valider=new Button("Valider");
          f.add(valider);
+
+        // FileUploader fu = new FileUploader("localhost/SoukLemdinaPiDev/web/");
+
+f.setToolbar(new Toolbar());
+Style s = UIManager.getInstance().getComponentStyle("Title");
+FontImage icon = FontImage.createMaterial(FontImage.MATERIAL_CAMERA, s);
+
+ImageViewer iv = new ImageViewer(icon);
+
+f.getToolbar().addCommandToRightBar("", icon, (ev) -> {
+    Display.getInstance().openGallery((e) -> {
+        
+        
+        
+        if(e != null && e.getSource() != null) {
+            try {
+                DefaultListModel<Image> m = (DefaultListModel<Image>)iv.getImageList();
+                Image img = Image.createImage((String)e.getSource());
+                if(m == null) {
+                    m = new DefaultListModel<>(img);
+                    iv.setImageList(m);
+                    iv.setImage(img);
+                    System.out.println(img.getImage().toString()+ "hhhhhhhhhhhhhhhhhhhhhh");
+                } else {
+                    m.addItem(img);
+                }
+                m.setSelectedIndex(m.getSize() - 1);
+            } catch(IOException err) {
+                Log.e(err);
+            }
+        }
+    }, Display.GALLERY_IMAGE);
+
+});
+      
+
         
 
 
@@ -189,6 +234,7 @@ choose.addActionListener(new ActionListener() {
 //            System.out.println(ss+"loooooooooool");
 //        } catch (Exception ex) {
 //        }      
+
 
          valider.addActionListener(new ActionListener() {
 

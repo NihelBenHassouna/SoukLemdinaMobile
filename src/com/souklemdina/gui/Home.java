@@ -215,6 +215,8 @@ AddToCart.addActionListener((l)->{
               
               catch(IOException ex){
                   System.out.println(ex);}
+   Home h = new Home();
+            h.getF().show();
 });
         //cnt1.add(quantite);
         

@@ -114,8 +114,8 @@ public class Panier {
                     +Authentification.connectedUser.getId()+ '/'+Total);
             connectionRequest.addResponseListener((NetworkEvent evtl) -> {
             Dialog.show("Ajout Panier", "ajout avec succes", "OK",null);
-            Home h = new Home();
-            h.getF().show();
+           Commande c = new Commande();
+            c.getF().show();
             
             });
          NetworkManager.getInstance().addToQueue(connectionRequest);
